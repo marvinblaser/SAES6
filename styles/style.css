@@ -1,0 +1,332 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    overflow: x;
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    background-color: #0F0F0F;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    /* supprimé height: 100vh; */
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    font-size: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* supprimé flex-wrap: wrap; */
+    min-height: 70vh;
+    flex: 1;
+}
+
+footer {
+    background-color: #1a1a1a; /* Arrière-plan sombre */
+    color: #ffffff; /* Texte blanc */
+    padding: 30px;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    /* Disposition flexible */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icônes des réseaux sociaux */
+.social-icons {
+    margin-bottom: 10px;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+    border-radius: 50%;
+    background-color: #ffffff; /* Fond blanc pour les icônes */
+    color: #1a1a1a; /* Couleur sombre pour les icônes */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #cccccc;
+}
+
+/* Liens d'informations */
+.info-links,
+.terms-privacy {
+    margin-bottom: 5px;
+}
+
+.info-links a,
+.terms-privacy a {
+    color: #ffffff; /* Couleur des liens */
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.info-links span,
+.terms-privacy span {
+    margin: 0 5px;
+    color: #ffffff; /* Couleur du séparateur */
+}
+
+/* Copyright */
+footer p {
+    font-size: 12px;
+}
+
+
+body {
+    --sb-track-color: #252525;
+    --sb-thumb-color: #43240c;
+    --sb-size: 14px;
+  }
+  
+  body::-webkit-scrollbar {
+    width: var(--sb-size)
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 3px;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 3px;
+    
+  }
+  
+  @supports not selector(::-webkit-scrollbar) {
+    body {
+      scrollbar-color: var(--sb-thumb-color)
+                       var(--sb-track-color);
+    }
+  }
+
+canvas {
+    display: block;
+}
+
+#vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* Mettre le background derrière le contenu */
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(0px);
+    /* Pas de flou par défaut */
+    -webkit-backdrop-filter: blur(0px);
+    /* Compatibilité Safari */
+    background: rgba(0, 0, 0, 0);
+    /* Transparent par défaut */
+    z-index: -1;
+    /* En dessous du contenu principal */
+    transition: backdrop-filter 0.1s ease, -webkit-backdrop-filter 0.1s ease,
+    background 0.1s ease;
+    /* Animation fluide */
+}
+
+#overlay.active {
+    z-index: 999;
+    /* Au-dessus du contenu principal */
+    backdrop-filter: blur(10px);
+    /* Flou activé */
+    -webkit-backdrop-filter: blur(10px);
+    /* Compatibilité Safari */
+    background: rgba(0, 0, 0, 0.3);
+    /* Couleur semi-transparente */
+}
+
+.popup {
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none;
+    /* Caché par défaut */
+    background: white;
+    border-radius: 20px;
+    /* Arrondir les bords */
+    overflow: hidden;
+    /* Empêcher le débordement */
+}
+
+.close-popup {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    color: gray;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.close-popup:hover {
+    color: rgb(218, 61, 61);
+}
+
+.popup-content {
+    width: 100%;
+    height: 100%;
+    /* Ajuster la hauteur pour inclure le header */
+    background: black;
+    /* Arrière-plan noir moderne */
+}
+
+.card {
+    width: 300px; /* Ajuster la largeur des cartes */
+    max-width: 300px;
+    height: 200px;
+    background: rgba(85, 85, 85, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.3s ease;
+    margin: 20px;
+    /* Espacement entre les cartes */
+    perspective: 1000px;
+    /* Perspective pour l'effet 3D */
+    transform-style: preserve-3d;
+}
+
+.card:hover {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 24px;
+}
+
+.card p {
+    margin: 10px 0 0;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+}
+
+#loading-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    z-index: 1001;
+    /* Au-dessus du contenu du popup */
+    border-radius: 20px;
+    /* Même arrondi que le popup */
+    display: none;
+    /* Caché par défaut */
+}
+
+/* Pour les écrans de moins de 768px (tablettes et mobiles) */
+@media (max-width: 768px) {
+    .card {
+        width: 100%; /* Les cartes prennent toute la largeur */
+        max-width: 90%; /* Limite la largeur à 90% */
+        height: auto; /* Ajuste la hauteur automatiquement */
+    }
+
+    .popup {
+        top: 10%;
+        left: 5%;
+        width: 90%;
+        height: 80%;
+    }
+
+    .close-popup {
+        font-size: 40px; /* Réduit la taille de la croix */
+    }
+}
+
+/* Pour les écrans de moins de 480px (mobiles) */
+@media (max-width: 480px) {
+    .card {
+        width: 100%; /* Les cartes prennent toute la largeur */
+        height: auto; /* Ajuste la hauteur automatiquement */
+    }
+
+    .popup {
+        top: 5%;
+        left: 5%;
+        width: 90%;
+        height: 85%;
+    }
+
+    .close-popup {
+        font-size: 30px; /* Réduit encore la taille de la croix */
+    }
+}
