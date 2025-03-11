@@ -1,489 +1,826 @@
 <!DOCTYPE html>
-
 <html lang="fr">
-
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Showroom - Site ORL 3D</title>
     <link rel="stylesheet" href="styles/style.css">
     <style>
-        /* Style pour le conteneur des cartes */
+      #card-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+        justify-items: center;
+        align-items: center;
+        min-height: 70vh;
+        width: 100%;
+      }
+      
+      .card {
+        width: 100%;
+        max-width: 300px;
+        height: 350px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+        margin: 10px;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        overflow: hidden;
+        padding: 20px;
+      }
+      
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      }
+      
+      .card-image {
+        width: 100%;
+        height: 150px;
+        object-fit: contain;
+        margin-bottom: 15px;
+        transition: transform 0.3s ease;
+      }
+      
+      .card:hover .card-image {
+        transform: scale(1.05);
+      }
+      
+      .card h3 {
+        font-size: 1.2rem;
+        margin: 0 0 5px 0;
+        color: white;
+        text-align: center;
+      }
+      
+      .card-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffcc00;
+        margin: 5px 0;
+      }
+      
+      .card-info {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      
+      .card-button {
+        background: linear-gradient(45deg, #6e45e2, #88d3ce);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 5px;
+      }
+      
+      .card-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(110, 69, 226, 0.4);
+      }
+      
+      @media (max-width: 1200px) {
         #card-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            /* Créer 4 colonnes par défaut */
-            grid-template-rows: repeat(3, 1fr);
-            /* Ajout de trois lignes de hauteur égale */
-            gap: 20px;
-            /* Espacement entre les cartes */
-            padding: 20px;
-            justify-items: center;
-            /* Centrer les cartes horizontalement */
-            align-items: center;
-            /* Centrer les cartes verticalement */
-            min-height: 70vh;
-            width: 100%;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 15px;
         }
-
-
-        /* Style pour les cartes */
+        
         .card {
-            width: 100%;
-            max-width: 300px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.3s ease;
-            margin: 10px;
-            perspective: 1000px;
-            transform-style: preserve-3d;
+          max-width: 250px;
+          height: 330px;
+          padding: 15px;
         }
-
-        @media (max-width: 768px) {
-            #card-container {
-                grid-template-columns: repeat(2, 1fr);
-                /* 2 colonnes sur les tablettes */
-            }
-
-            .card {
-                max-width: 100%;
-                /* Occupe toute la largeur */
-            }
+        
+        .card-image {
+          height: 130px;
         }
-
-        /* Pour les écrans de moins de 480px (mobiles) */
-        @media (max-width: 480px) {
-            #card-container {
-                grid-template-columns: 1fr;
-                /* 1 colonne sur les mobiles */
-            }
+      }
+      
+      @media (max-width: 992px) {
+        #card-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
         }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            grid-column: 1 / -1;
-            /* Prend toute la largeur de la grille */
+        
+        .card {
+          max-width: 280px;
         }
-
-        .pagination button {
-            padding: 10px 20px;
-            margin: 0 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+      }
+      
+      @media (max-width: 768px) {
+        #card-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
         }
-
-        .pagination button:disabled {
-            cursor: not-allowed;
-            pointer-events: none;
+        
+        .card {
+          max-width: 100%;
+          height: 320px;
+          padding: 15px;
         }
-
-        main {
-            display: flex;
-            flex-direction: column;
-            /* Créer 3 lignes avec hauteur auto */
-            gap: 20px;
-            /* Espacement entre les éléments */
-            padding: 20px;
-            justify-content: center;
-            align-items: center;
-            /* Aligner les éléments en haut */
-            min-height: 70vh;
+        
+        .card-image {
+          height: 120px;
         }
-
-
-        #vanta-bg {
-            height: 900px;
+        
+        .card h3 {
+          font-size: 1.1rem;
         }
-
+        
+        .card-price {
+          font-size: 1.3rem;
+        }
+        
+        .card-info {
+          font-size: 0.8rem;
+        }
+        
         body main {
-            width: 90vw;
+          width: 95vw;
         }
-
-        #vanta-bg.active {
-            height: 900px;
+      }
+      
+      @media (max-width: 576px) {
+        #card-container {
+          grid-template-columns: 1fr;
+          padding: 10px;
         }
+        
+        .card {
+          max-width: 280px;
+          height: 300px;
+          padding: 12px;
+        }
+        
+        .pagination button {
+          padding: 8px 15px;
+          margin: 0 5px;
+        }
+        
+        #page-numbers {
+          margin: 0 8px;
+        }
+      }
+      
+      @media (max-width: 380px) {
+        .card {
+          max-width: 100%;
+          height: 280px;
+          padding: 10px;
+        }
+        
+        .card-image {
+          height: 100px;
+          margin-bottom: 10px;
+        }
+        
+        .card-button {
+          padding: 6px 12px;
+          font-size: 0.85rem;
+        }
+      }
+      
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        grid-column: 1 / -1;
+        padding: 0 0 100px 0;
+      }
+      
+      .pagination button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        background: linear-gradient(45deg, #6e45e2, #88d3ce);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      
+      .pagination button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      }
+      
+      .pagination button:disabled {
+        background: rgba(255, 255, 255, 0.2);
+        cursor: not-allowed;
+        pointer-events: none;
+        color: rgba(255, 255, 255, 0.5);
+      }
+      
+      #page-numbers {
+        display: flex;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        margin: 0 15px;
+      }
+      
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+      }
+      
+      #vanta-bg {
+        height: 900px;
+      }
+      
+      body main {
+        width: 90vw;
+      }
+      
+      #vanta-bg.active {
+        height: 900px;
+      }
+      
+      .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.9);
+        width: 90%;
+        max-width: 800px;
+        height: 80%;
+        max-height: 600px;
+        z-index: 1000;
+        display: none;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+      }
+      
+      .popup-content {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      
+      .close-popup {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 1001;
+        transition: background 0.3s;
+      }
+      
+      .close-popup:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+      
+      #loading-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        font-size: 18px;
+        z-index: 999;
+      }
+      
+      #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+        display: none;
+      }
+      
+      #overlay.active {
+        display: block;
+      }
+      
+      @media (max-width: 768px) {
+        .popup {
+          width: 95%;
+          height: 70%;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .popup {
+          width: 98%;
+          height: 60%;
+        }
+        
+        .close-popup {
+          right: 10px;
+          top: 10px;
+          width: 30px;
+          height: 30px;
+          font-size: 16px;
+        }
+      }
     </style>
-</head>
-
-<body> <!-- Conteneur pour le background Vanta.js -->
+  </head>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="about.html">À propos</a></li>
-                <li><a href="showroom.html">Showroom</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="showroom.html">Showroom</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <div id="card-container">
-            <!-- Les cartes seront ajoutées ici par JavaScript -->
+      <div id="card-container"></div>
+      
+      <div class="pagination">
+        <button id="prev-page"><</button>
+        <span id="page-numbers">1 / XX</span>
+        <button id="next-page">></button>
+      </div>
+      
+      <div id="popup" class="popup">
+        <button class="close-popup">&times;</button>
+        <div class="popup-content">
+          <div id="loading-screen">Chargement du modèle 3D...</div>
         </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-            <button id="prev-page">
-                < </button>
-                    <span id="page-numbers">1 / XX</span>
-                    <button id="next-page">></span>
-        </div>
-
-        <!-- Popup pour afficher les modèles -->
-        <div id="popup" class="popup">
-            <button class="close-popup">&times;</button>
-            <div class="popup-content">
-                <div id="loading-screen">Chargement du modèle 3D...</div>
-            </div>
-        </div>
-        <div id="overlay"></div>
-        <div id="vanta-bg"></div>
+      </div>
+      <div id="overlay"></div>
+      <div id="vanta-bg"></div>
     </main>
-
+    
     <footer>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                    viewBox="0 0 32 32">
-                    <path
-                        d="M16,2.345c7.735,0,14,6.265,14,14-.002,6.015-3.839,11.359-9.537,13.282-.7,.14-.963-.298-.963-.665,0-.473,.018-1.978,.018-3.85,0-1.312-.437-2.152-.945-2.59,3.115-.35,6.388-1.54,6.388-6.912,0-1.54-.543-2.783-1.435-3.762,.14-.35,.63-1.785-.14-3.71,0,0-1.173-.385-3.85,1.435-1.12-.315-2.31-.472-3.5-.472s-2.38,.157-3.5,.472c-2.677-1.802-3.85-1.435-3.85-1.435-.77,1.925-.28,3.36-.14,3.71-.892,.98-1.435,2.24-1.435,3.762,0,5.355,3.255,6.563,6.37,6.913-.403,.35-.77,.963-.893,1.872-.805,.368-2.818,.963-4.077-1.155-.263-.42-1.05-1.452-2.152-1.435-1.173,.018-.472,.665,.017,.927,.595,.332,1.277,1.575,1.435,1.978,.28,.787,1.19,2.293,4.707,1.645,0,1.173,.018,2.275,.018,2.607,0,.368-.263,.787-.963,.665-5.719-1.904-9.576-7.255-9.573-13.283,0-7.735,6.265-14,14-14Z">
-                    </path>
-                </svg></a>
-            <a href="#"><i class="fab fa-instagram"></i><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                    viewBox="0 0 32 32">
-                    <path
-                        d="M16,2c-7.732,0-14,6.268-14,14s6.268,14,14,14,14-6.268,14-14S23.732,2,16,2Zm6.489,9.521c-.211,2.214-1.122,7.586-1.586,10.065-.196,1.049-.583,1.401-.957,1.435-.813,.075-1.43-.537-2.218-1.053-1.232-.808-1.928-1.311-3.124-2.099-1.382-.911-.486-1.412,.302-2.23,.206-.214,3.788-3.472,3.858-3.768,.009-.037,.017-.175-.065-.248-.082-.073-.203-.048-.29-.028-.124,.028-2.092,1.329-5.905,3.903-.559,.384-1.065,.571-1.518,.561-.5-.011-1.461-.283-2.176-.515-.877-.285-1.574-.436-1.513-.92,.032-.252,.379-.51,1.042-.773,4.081-1.778,6.803-2.95,8.164-3.517,3.888-1.617,4.696-1.898,5.222-1.907,.116-.002,.375,.027,.543,.163,.142,.115,.181,.27,.199,.379,.019,.109,.042,.357,.023,.551Z"
-                        fill-rule="evenodd"></path>
-                </svg></a>
-            <a href="#"><i class="fab fa-twitter"></i><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                    viewBox="0 0 32 32">
-                    <path
-                        d="M16,2c-7.732,0-14,6.268-14,14,0,6.566,4.52,12.075,10.618,13.588v-9.31h-2.887v-4.278h2.887v-1.843c0-4.765,2.156-6.974,6.835-6.974,.887,0,2.417,.174,3.043,.348v3.878c-.33-.035-.904-.052-1.617-.052-2.296,0-3.183,.87-3.183,3.13v1.513h4.573l-.786,4.278h-3.787v9.619c6.932-.837,12.304-6.74,12.304-13.897,0-7.732-6.268-14-14-14Z">
-                    </path>
-                </svg></a>
-        </div>
-        <div class="info-links">
-            <a href="#">Accueil</a>
-            <span>•</span>
-            <a href="#">A propos</a>
-            <span>•</span>
-            <a href="#">Showroom</a>
-        </div>
-        <div class="terms-privacy">
-            <a href="#">Conditions d'utilisaion</a>
-            <span>•</span>
-            <a href="#">Politique de confidentialité</a>
-        </div>
-        <p>&copy; 2025 Marvin BLASER</p>
+      <div class="social-icons">
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+            <path d="M16,2.345c7.735,0,14,6.265,14,14-.002,6.015-3.839,11.359-9.537,13.282-.7,.14-.963-.298-.963-.665,0-.473,.018-1.978,.018-3.85,0-1.312-.437-2.152-.945-2.59,3.115-.35,6.388-1.54,6.388-6.912,0-1.54-.543-2.783-1.435-3.762,.14-.35,.63-1.785-.14-3.71,0,0-1.173-.385-3.85,1.435-1.12-.315-2.31-.472-3.5-.472s-2.38,.157-3.5,.472c-2.677-1.802-3.85-1.435-3.85-1.435-.77,1.925-.28,3.36-.14,3.71-.892,.98-1.435,2.24-1.435,3.762,0,5.355,3.255,6.563,6.37,6.913-.403,.35-.77,.963-.893,1.872-.805,.368-2.818,.963-4.077-1.155-.263-.42-1.05-1.452-2.152-1.435-1.173,.018-.472,.665,.017,.927,.595,.332,1.277,1.575,1.435,1.978,.28,.787,1.19,2.293,4.707,1.645,0,1.173,.018,2.275,.018,2.607,0,.368-.263,.787-.963,.665-5.719-1.904-9.576-7.255-9.573-13.283,0-7.735,6.265-14,14-14Z"></path>
+          </svg></a>
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+            <path d="M16,2c-7.732,0-14,6.268-14,14s6.268,14,14,14,14-6.268,14-14S23.732,2,16,2Zm6.489,9.521c-.211,2.214-1.122,7.586-1.586,10.065-.196,1.049-.583,1.401-.957,1.435-.813,.075-1.43-.537-2.218-1.053-1.232-.808-1.928-1.311-3.124-2.099-1.382-.911-.486-1.412,.302-2.23,.206-.214,3.788-3.472,3.858-3.768,.009-.037,.017-.175-.065-.248-.082-.073-.203-.048-.29-.028-.124,.028-2.092,1.329-5.905,3.903-.559,.384-1.065,.571-1.518,.561-.5-.011-1.461-.283-2.176-.515-.877-.285-1.574-.436-1.513-.92,.032-.252,.379-.51,1.042-.773,4.081-1.778,6.803-2.95,8.164-3.517,3.888-1.617,4.696-1.898,5.222-1.907,.116-.002,.375,.027,.543,.163,.142,.115,.181,.27,.199,.379,.019,.109,.042,.357,.023,.551Z" fill-rule="evenodd"></path>
+          </svg></a>
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+            <path d="M16,2c-7.732,0-14,6.268-14,14,0,6.566,4.52,12.075,10.618,13.588v-9.31h-2.887v-4.278h2.887v-1.843c0-4.765,2.156-6.974,6.835-6.974,.887,0,2.417,.174,3.043,.348v3.878c-.33-.035-.904-.052-1.617-.052-2.296,0-3.183,.87-3.183,3.13v1.513h4.573l-.786,4.278h-3.787v9.619c6.932-.837,12.304-6.74,12.304-13.897,0-7.732-6.268-14-14-14Z"></path>
+          </svg></a>
+      </div>
+      <div class="info-links">
+        <a href="#">Accueil</a>
+        <span>•</span>
+        <a href="#">A propos</a>
+        <span>•</span>
+        <a href="#">Showroom</a>
+      </div>
+      <div class="terms-privacy">
+        <a href="#">Conditions d'utilisaion</a>
+        <span>•</span>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+      <p>&copy; 2025 Marvin BLASER</p>
     </footer>
-
-    <!-- Scripts nécessaires -->
+    
     <script src="js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script type="module">
-        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.126.0/build/three.module.js';
-        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/loaders/GLTFLoader.js';
-        import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/OrbitControls.js';
-
-        // Variables globales
-        let scene, camera, renderer, currentModel, controls, isPopupOpen = false;
-
-        const modelsData = [
-            { name: "Modèle 1", path: "misc/models/model1.glb" },
-            { name: "Modèle 2", path: "misc/models/model2.glb" },
-            { name: "Modèle 3", path: "misc/models/model3.glb" },
-            { name: "Modèle 4", path: "misc/models/model1.glb" },
-            { name: "Modèle 5", path: "misc/models/model2.glb" },
-            { name: "Modèle 6", path: "misc/models/model3.glb" },
-            { name: "Modèle 7", path: "misc/models/model1.glb" },
-            { name: "Modèle 8", path: "misc/models/model2.glb" },
-            { name: "Modèle 9", path: "misc/models/model3.glb" },
-            { name: "Modèle 10", path: "misc/models/model1.glb" },
-            { name: "Modèle 11", path: "misc/models/model2.glb" },
-            { name: "Modèle 12", path: "misc/models/model3.glb" },
-            { name: "Modèle 13", path: "misc/models/model1.glb" },
-            { name: "Modèle 14", path: "misc/models/model2.glb" },
-            { name: "Modèle 15", path: "misc/models/model3.glb" },
-        ];
-        const cardsPerPage = 12;
-        let currentPage = 0;
-
-        // Fonction pour initialiser la scène
-        function initThreeJS(container) {
-            if (!scene) {
-                scene = new THREE.Scene();
-
-                // Définir un arrière-plan personnalisé (couleur ou texture)
-                const textureLoader = new THREE.TextureLoader();
-                textureLoader.load("misc/img/3dbg.jpg", (texture) => {
-                    scene.background = texture; // Appliquer la texture comme arrière-plan
-                });
-                camera = new THREE.PerspectiveCamera(
-                    75,
-                    container.offsetWidth / container.offsetHeight,
-                    0.1,
-                    1000
-                );
-                camera.position.z = 0.5;
-
-                renderer = new THREE.WebGLRenderer({ antialias: true });
-                renderer.setSize(container.offsetWidth, container.offsetHeight);
-                container.appendChild(renderer.domElement);
-
-                // Ajouter une lumière ambiante
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.3); // Lumière ambiante douce
-                scene.add(ambientLight);
-
-                // Ajouter des lumières ponctuelles autour du modèle
-                const pointLight1 = new THREE.PointLight(0xffffff, 1, 100); // Lumière blanche
-                pointLight1.position.set(5, 5, 5); // Position en haut à droite
-                scene.add(pointLight1);
-
-                const pointLight2 = new THREE.PointLight(0xffffff, 1, 100);
-                pointLight2.position.set(-5, 5, 5); // Position en haut à gauche
-                scene.add(pointLight2);
-
-                const pointLight3 = new THREE.PointLight(0xffffff, 1, 100);
-                pointLight3.position.set(5, -5, 5); // Position en bas à droite
-                scene.add(pointLight3);
-
-                const pointLight4 = new THREE.PointLight(0xffffff, 1, 100);
-                pointLight4.position.set(-5, -5, 5); // Position en bas à gauche
-                scene.add(pointLight4);
-
-                // Initialiser les contrôles de la caméra
-                controls = new OrbitControls(camera, renderer.domElement);
-                controls.enableDamping = true;
-                controls.dampingFactor = 0.25;
-
-                const animate = function () {
-                    if (isPopupOpen) {
-                        requestAnimationFrame(animate);
-                        controls.update();
-                        renderer.render(scene, camera);
-                    }
-                };
-                animate();
+      import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.126.0/build/three.module.js';
+      import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/loaders/GLTFLoader.js';
+      import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/OrbitControls.js';
+      
+      let scene, camera, renderer, currentModel, controls, isPopupOpen = false;
+      
+      const modelsData = [
+        { 
+          name: "iPhone 14 Pro Max", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/iphone14pro.png",
+          price: "999€",
+          specs: "A16 Bionic, 6.7\", 8GB RAM"
+        },
+        { 
+          name: "Galaxy S23 Ultra", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/galaxys23.webp",
+          price: "899€",
+          specs: "SD 8 Gen 2, 6.8\", 12GB RAM"
+        },
+        { 
+          name: "Pixel 7 Pro", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/pixel7.png",
+          price: "799€",
+          specs: "Tensor G2, 6.7\", 12GB RAM"
+        },
+        { 
+          name: "OnePlus 11 Pro", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/oneplus11.png",
+          price: "849€",
+          specs: "SD 8 Gen 2, 6.8\", 16GB RAM"
+        },
+        { 
+          name: "Xiaomi 13T Pro", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/xiaomi13pro.png",
+          price: "899€",
+          specs: "Dimensity 9000+, 6.67\", 12GB"
+        },
+        { 
+          name: "iPhone 13 Pro", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/iphone13.png",
+          price: "799€",
+          specs: "A15 Bionic, 6.1\", 6GB RAM"
+        },
+        { 
+          name: "iPhone 14 Plus", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/iphone14pro.png",
+          price: "999€",
+          specs: "A15 Bionic, 6.7\", 6GB RAM"
+        },
+        { 
+          name: "Galaxy S22", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/galaxys23.webp",
+          price: "899€",
+          specs: "Exynos 2200, 6.1\", 8GB RAM"
+        },
+        { 
+          name: "Pixel 6", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/pixel7.png",
+          price: "799€",
+          specs: "Tensor, 6.4\", 8GB RAM"
+        },
+        { 
+          name: "OnePlus 10T", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/oneplus11.png",
+          price: "849€",
+          specs: "SD 8+ Gen 1, 6.7\", 16GB RAM"
+        },
+        { 
+          name: "Xiaomi 12S Ultra", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/xiaomi13pro.png",
+          price: "899€",
+          specs: "SD 8+ Gen 1, 6.73\", 12GB RAM"
+        },
+        { 
+          name: "iPhone SE 2022", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/iphone13.png",
+          price: "799€",
+          specs: "A15 Bionic, 4.7\", 4GB RAM"
+        },
+        { 
+          name: "iPhone 12 Pro Max", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/iphone14pro.png",
+          price: "999€",
+          specs: "A14 Bionic, 6.7\", 6GB RAM"
+        },
+        { 
+          name: "Galaxy Z Fold4", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/galaxys23.webp",
+          price: "899€",
+          specs: "SD 8+ Gen 1, 7.6\", 12GB RAM"
+        },
+        { 
+          name: "Pixel Fold", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/pixel7.png",
+          price: "799€",
+          specs: "Tensor G2, 7.6\", 12GB RAM"
+        },
+        { 
+          name: "OnePlus Nord 3", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/oneplus11.png",
+          price: "849€",
+          specs: "Dimensity 9000, 6.7\", 16GB RAM"
+        },
+        { 
+          name: "Redmi Note 12 Pro", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/xiaomi13pro.png",
+          price: "899€",
+          specs: "Dimensity 1080, 6.67\", 8GB RAM"
+        },
+        { 
+          name: "iPhone 11 Pro", 
+          path: "misc/models/model1.glb",
+          image: "misc/img/iphone13.png",
+          price: "799€",
+          specs: "A13 Bionic, 5.8\", 4GB RAM"
+        }
+      ];
+      
+      const cardsPerPage = 6;
+      let currentPage = 0;
+      
+      function initThreeJS(container) {
+        if (!scene) {
+          scene = new THREE.Scene();
+      
+          const textureLoader = new THREE.TextureLoader();
+          textureLoader.load("misc/img/3dbg.jpg", (texture) => {
+            scene.background = texture;
+          });
+          camera = new THREE.PerspectiveCamera(
+            75,
+            container.offsetWidth / container.offsetHeight,
+            0.1,
+            1000
+          );
+          camera.position.z = 0.5;
+      
+          renderer = new THREE.WebGLRenderer({ antialias: true });
+          renderer.setSize(container.offsetWidth, container.offsetHeight);
+          container.appendChild(renderer.domElement);
+      
+          const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+          scene.add(ambientLight);
+      
+          const pointLight1 = new THREE.PointLight(0xffffff, 1, 100);
+          pointLight1.position.set(5, 5, 5);
+          scene.add(pointLight1);
+      
+          const pointLight2 = new THREE.PointLight(0xffffff, 1, 100);
+          pointLight2.position.set(-5, 5, 5);
+          scene.add(pointLight2);
+      
+          const pointLight3 = new THREE.PointLight(0xffffff, 1, 100);
+          pointLight3.position.set(5, -5, 5);
+          scene.add(pointLight3);
+      
+          const pointLight4 = new THREE.PointLight(0xffffff, 1, 100);
+          pointLight4.position.set(-5, -5, 5);
+          scene.add(pointLight4);
+      
+          controls = new OrbitControls(camera, renderer.domElement);
+          controls.enableDamping = true;
+          controls.dampingFactor = 0.25;
+      
+          const animate = function () {
+            if (isPopupOpen) {
+              requestAnimationFrame(animate);
+              controls.update();
+              renderer.render(scene, camera);
             }
+          };
+          animate();
         }
-
-        // Fonction pour charger un modèle 3D
-        function loadModel(modelPath, container) {
-            const loadingScreen = container.querySelector('#loading-screen');
-            loadingScreen.style.display = 'flex'; // Afficher l'écran de chargement
-
-            // Supprimer le modèle actuel s'il existe
-            if (currentModel) {
-                scene.remove(currentModel); // Retirer le modèle de la scène
-                disposeModel(currentModel); // Libérer les ressources du modèle
-                currentModel = null; // Réinitialiser la variable
+      }
+      
+      function handleResize() {
+        if (renderer && camera && isPopupOpen) {
+          const container = document.querySelector('.popup-content');
+          const width = container.offsetWidth;
+          const height = container.offsetHeight;
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+          renderer.setSize(width, height);
+        }
+      }
+      
+      function loadModel(modelPath, container) {
+        const loadingScreen = container.querySelector('#loading-screen');
+        loadingScreen.style.display = 'flex';
+      
+        if (currentModel) {
+          scene.remove(currentModel);
+          disposeModel(currentModel);
+          currentModel = null;
+        }
+      
+        const loader = new GLTFLoader();
+        loader.load(
+          modelPath,
+          (gltf) => {
+            currentModel = gltf.scene;
+      
+            const box = new THREE.Box3().setFromObject(currentModel);
+            const center = box.getCenter(new THREE.Vector3());
+            const size = box.getSize(new THREE.Vector3());
+      
+            currentModel.position.x -= center.x;
+            currentModel.position.y -= center.y;
+            currentModel.position.z -= center.z;
+      
+            currentModel.rotation.y = Math.PI / 2;
+      
+            scene.add(currentModel);
+      
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const fov = camera.fov * (Math.PI / 180);
+            const cameraZ = Math.abs(maxDim / (2 * Math.tan(fov / 2)));
+            camera.position.z = cameraZ * 1.5;
+      
+            if (!controls) {
+              controls = new OrbitControls(camera, renderer.domElement);
+              controls.enableDamping = true;
+              controls.dampingFactor = 0.25;
             }
-
-            // Charger le nouveau modèle
-            const loader = new GLTFLoader();
-            loader.load(
-                modelPath,
-                (gltf) => {
-                    currentModel = gltf.scene;
-
-                    // Calculer les limites (bounding box) du modèle
-                    const box = new THREE.Box3().setFromObject(currentModel);
-                    const center = box.getCenter(new THREE.Vector3()); // Centre du modèle
-                    const size = box.getSize(new THREE.Vector3()); // Taille du modèle
-
-                    // Recentrer le modèle à l'origine
-                    currentModel.position.x -= center.x;
-                    currentModel.position.y -= center.y;
-                    currentModel.position.z -= center.z;
-
-                    // Appliquer une rotation uniforme (orienter tous les modèles dans le même sens)
-                    currentModel.rotation.y = Math.PI / 2; // Rotation de 90° sur l'axe Y
-
-                    // Ajouter le modèle à la scène
-                    scene.add(currentModel);
-
-                    // Ajuster la position de la caméra pour que le modèle soit entièrement visible
-                    const maxDim = Math.max(size.x, size.y, size.z); // Dimension maximale du modèle
-                    const fov = camera.fov * (Math.PI / 180); // Champ de vision en radians
-                    const cameraZ = Math.abs(maxDim / (2 * Math.tan(fov / 2))); // Calculer la distance de la caméra
-                    camera.position.z = cameraZ * 1.5; // Ajouter un facteur pour un peu de marge
-
-                    // Réinitialiser les contrôles
-                    if (!controls) {
-                        controls = new OrbitControls(camera, renderer.domElement);
-                        controls.enableDamping = true;
-                        controls.dampingFactor = 0.25;
-                    }
-                    controls.target.set(0, 0, 0); // Centrer les contrôles sur l'origine
-                    controls.minDistance = cameraZ * 0.5; // Zoom in minimum
-                    controls.maxDistance = cameraZ * 3; // Zoom out maximum
-                    controls.update();
-
-                    loadingScreen.style.display = 'none'; // Cacher l'écran de chargement
-                },
-                undefined,
-                (error) => {
-                    console.error('Erreur lors du chargement du modèle :', error);
-                    loadingScreen.style.display = 'none'; // Cacher l'écran de chargement en cas d'erreur
-                }
-            );
-        }
-
-        // Fonction pour libérer les ressources d'un modèle
-        function disposeModel(model) {
-            model.traverse((child) => {
-                if (child.geometry) child.geometry.dispose(); // Libérer la géométrie
-                if (child.material) {
-                    if (Array.isArray(child.material)) {
-                        child.material.forEach((material) => material.dispose()); // Libérer les matériaux multiples
-                    } else {
-                        child.material.dispose(); // Libérer un matériau unique
-                    }
-                }
-            });
-        }
-
-        // Code pour la disposition en grille et la pagination
-        const cardContainer = document.getElementById("card-container");
-        const prevPageButton = document.getElementById("prev-page");
-        const nextPageButton = document.getElementById("next-page");
-        const overlay = document.getElementById("overlay");
-        const popup = document.getElementById("popup");
-        const popupContent = popup.querySelector(".popup-content");
-        const closePopupButton = popup.querySelector(".close-popup");
-
-        // Fonction pour créer les cartes à partir des données
-        function createCard(model, index) {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.dataset.model = model.path;
-
-            const h3 = document.createElement("h3");
-            h3.textContent = model.name;
-
-            const p = document.createElement("p");
-            p.textContent = "Cliquez pour voir le modèle";
-
-            card.appendChild(h3);
-            card.appendChild(p);
-
-            card.addEventListener('click', () => {
-                const modelPath = card.getAttribute('data-model');
-
-                // Afficher le popup
-                popup.style.display = 'block';
-                overlay.classList.add('active');
-                isPopupOpen = true;
-
-                // Initialiser Three.js et charger le modèle
-                initThreeJS(popupContent);
-                loadModel(modelPath, popupContent);
-            });
-            card.addEventListener("mousemove", (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = -(y - centerY) / 5;
-                const rotateY = (x - centerX) / 7;
-
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-
-            card.addEventListener("mouseleave", () => {
-                card.style.transform = "rotateX(0deg) rotateY(0deg)";
-            });
-
-            return card;
-        }
-
-        // Fonction pour afficher les cartes d'une page
-        function displayCards(page) {
-            cardContainer.innerHTML = ""; // Effacer les cartes existantes
-
-            const start = page * cardsPerPage;
-            const end = start + cardsPerPage;
-            const pageModels = modelsData.slice(start, end);
-
-            pageModels.forEach((model, index) => {
-                const card = createCard(model, index);
-                cardContainer.appendChild(card);
-            });
-        }
-
-        // Fonction pour mettre à jour l'état des boutons de pagination
-        function updatePaginationButtons() {
-            prevPageButton.disabled = currentPage === 0;
-            nextPageButton.disabled =
-                currentPage === Math.ceil(modelsData.length / cardsPerPage) - 1;
-
-            let pageNumbers = document.querySelector("#page-numbers");
-            pageNumbers.textContent = currentPage + 1 + ' / ' + Math.ceil(modelsData.length / cardsPerPage)
-        }
-
-
-        // Gestionnaires d'événements pour la pagination
-        prevPageButton.addEventListener("click", () => {
-            if (currentPage > 0) {
-                currentPage--;
-                displayCards(currentPage);
-                updatePaginationButtons();
+            controls.target.set(0, 0, 0);
+            controls.minDistance = cameraZ * 0.5;
+            controls.maxDistance = cameraZ * 3;
+            controls.update();
+      
+            loadingScreen.style.display = 'none';
+          },
+          undefined,
+          (error) => {
+            console.error('Erreur lors du chargement du modèle :', error);
+            loadingScreen.style.display = 'none';
+          }
+        );
+      }
+      
+      function disposeModel(model) {
+        model.traverse((child) => {
+          if (child.geometry) child.geometry.dispose();
+          if (child.material) {
+            if (Array.isArray(child.material)) {
+              child.material.forEach((material) => material.dispose());
+            } else {
+              child.material.dispose();
             }
+          }
         });
-
-        nextPageButton.addEventListener("click", () => {
-            if (currentPage < Math.ceil(modelsData.length / cardsPerPage) - 1) {
-                currentPage++;
-                displayCards(currentPage);
-                updatePaginationButtons();
-            }
+      }
+      
+      const cardContainer = document.getElementById("card-container");
+      const prevPageButton = document.getElementById("prev-page");
+      const nextPageButton = document.getElementById("next-page");
+      const overlay = document.getElementById("overlay");
+      const popup = document.getElementById("popup");
+      const popupContent = popup.querySelector(".popup-content");
+      const closePopupButton = popup.querySelector(".close-popup");
+      
+      function createCard(model, index) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.dataset.model = model.path;
+      
+        const img = document.createElement("img");
+        img.src = model.image;
+        img.alt = model.name;
+        img.className = "card-image";
+        card.appendChild(img);
+      
+        const h3 = document.createElement("h3");
+        h3.textContent = model.name;
+        card.appendChild(h3);
+      
+        const price = document.createElement("div");
+        price.className = "card-price";
+        price.textContent = model.price;
+        card.appendChild(price);
+      
+        const specs = document.createElement("div");
+        specs.className = "card-info";
+        specs.textContent = model.specs;
+        card.appendChild(specs);
+      
+        const button = document.createElement("button");
+        button.className = "card-button";
+        button.textContent = "Voir en 3D";
+        card.appendChild(button);
+      
+        card.addEventListener('click', () => {
+          const modelPath = card.getAttribute('data-model');
+          popup.style.display = 'block';
+          overlay.style.display = 'block';
+          isPopupOpen = true;
+          initThreeJS(popupContent);
+          loadModel(modelPath, popupContent);
         });
-
-        closePopupButton.addEventListener("click", () => {
-            // Recharger la page
-            location.reload();
-        });
-
-        displayCards(currentPage);
-        updatePaginationButtons();
-        // Fonction pour initialiser Vanta.js pour le background
-        if (typeof VANTA !== 'undefined') {
-            VANTA.GLOBE({
-                el: "#vanta-bg",
-                THREE: THREE, // Utilisez votre instance de Three.js
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                scale: 1.00,
-                scaleMobile: 1.00,
-                color: 0x43240c,
-                color2: 0x252525,
-                size: 1.30,
-                backgroundColor: 0xf0f0f
-            });
+        
+        if (window.matchMedia("(min-width: 768px)").matches) {
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = -(y - centerY) / 7;
+            const rotateY = (x - centerX) / 7;
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+          });
+      
+          card.addEventListener("mouseleave", () => {
+            card.style.transform = "rotateX(0deg) rotateY(0deg)";
+          });
         }
-
+      
+        return card;
+      }
+      
+      function displayCards(page) {
+        cardContainer.innerHTML = "";
+        const start = page * cardsPerPage;
+        const end = start + cardsPerPage;
+        const pageModels = modelsData.slice(start, end);
+      
+        pageModels.forEach((model, index) => {
+          const card = createCard(model, index);
+          cardContainer.appendChild(card);
+        });
+      }
+      
+      function updatePaginationButtons() {
+        prevPageButton.disabled = currentPage === 0;
+        nextPageButton.disabled = currentPage === Math.ceil(modelsData.length / cardsPerPage) - 1;
+        let pageNumbers = document.querySelector("#page-numbers");
+        pageNumbers.textContent = currentPage + 1 + ' / ' + Math.ceil(modelsData.length / cardsPerPage);
+      }
+      
+      prevPageButton.addEventListener("click", () => {
+        if (currentPage > 0) {
+          currentPage--;
+          displayCards(currentPage);
+          updatePaginationButtons();
+        }
+      });
+      
+      nextPageButton.addEventListener("click", () => {
+        if (currentPage < Math.ceil(modelsData.length / cardsPerPage) - 1) {
+          currentPage++;
+          displayCards(currentPage);
+          updatePaginationButtons();
+        }
+      });
+      
+      closePopupButton.addEventListener("click", () => {
+        popup.style.display = 'none';
+        overlay.style.display = 'none';
+        isPopupOpen = false;
+        location.reload();
+        
+        if (currentModel) {
+          scene.remove(currentModel);
+          disposeModel(currentModel);
+          currentModel = null;
+        }
+      });
+      
+      window.addEventListener('resize', handleResize);
+      
+      displayCards(currentPage);
+      updatePaginationButtons();
+      
+      if (typeof VANTA !== 'undefined') {
+        VANTA.GLOBE({
+          el: "#vanta-bg",
+          THREE: THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x43240c,
+          color2: 0x252525,
+          size: 1.30,
+          backgroundColor: 0xf0f0f
+        });
+      }
     </script>
-</body>
-
+  </body>
 </html>

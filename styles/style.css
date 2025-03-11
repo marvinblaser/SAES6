@@ -63,6 +63,7 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 999;
 }
 
 /* Icônes des réseaux sociaux */
@@ -154,6 +155,13 @@ canvas {
     z-index: -1;
     /* Mettre le background derrière le contenu */
 }
+
+.bigoshop-logo{
+    background-color: orange;
+    color: black;
+    padding: 0px 6px;
+    border-radius: 10px;
+  }
 
 #overlay {
     position: fixed;

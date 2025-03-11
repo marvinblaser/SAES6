@@ -1,87 +1,423 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>À propos - Site ORL 3D</title>
+    <title>À propos - BigoShop</title>
     <link rel="stylesheet" href="styles/style.css">
-</head>
-<body>
+    <style>
+      .about-container {
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      
+      .about-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+      
+      .about-header h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+      
+      .about-header p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+      
+      .about-section {
+        margin-bottom: 80px;
+      }
+      
+      .about-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+        color: #fff;
+        position: relative;
+        padding-bottom: 15px;
+      }
+      
+      .about-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background-color: #43240c;
+      }
+      
+      .about-section p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+      
+      .about-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        margin-top: 40px;
+      }
+      
+      .about-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 30px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .about-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #fff;
+      }
+      
+      .about-card p {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+      
+      .team-section {
+        margin-top: 60px;
+      }
+      
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 40px;
+      }
+      
+      .team-member {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .team-photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        background-color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #fff;
+      }
+      
+      .team-member h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+      
+      .team-member p.role {
+        font-size: 1rem;
+        color: #ccc;
+        margin-bottom: 15px;
+      }
+      
+      .team-member p.bio {
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+      
+      .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px 0;
+      }
+      
+      .timeline::after {
+        content: '';
+        position: absolute;
+        width: 4px;
+        background-color: #43240c;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -2px;
+      }
+      
+      .timeline-item {
+        padding: 10px 40px;
+        position: relative;
+        width: 50%;
+        box-sizing: border-box;
+      }
+      
+      .timeline-item::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: #fff;
+        border: 4px solid #43240c;
+        border-radius: 50%;
+        top: 15px;
+        z-index: 1;
+      }
+      
+      .timeline-item.left {
+        left: 0;
+      }
+      
+      .timeline-item.right {
+        left: 50%;
+      }
+      
+      .timeline-item.left::after {
+        right: -12px;
+      }
+      
+      .timeline-item.right::after {
+        left: -12px;
+      }
+      
+      .timeline-content {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .timeline-content h3 {
+        margin-top: 0;
+        color: #fff;
+      }
+      
+      .timeline-content p {
+        margin-bottom: 0;
+      }
+      
+      @media screen and (max-width: 992px) {
+        .team-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      
+      @media screen and (max-width: 768px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .timeline::after {
+          left: 31px;
+        }
+        
+        .timeline-item {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+        
+        .timeline-item.right {
+          left: 0;
+        }
+        
+        .timeline-item.left::after,
+        .timeline-item.right::after {
+          left: 19px;
+        }
+      }
+      
+      @media screen and (max-width: 576px) {
+        .team-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .about-header h1 {
+          font-size: 2.5rem;
+        }
+        
+        .about-section h2 {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="about.html">À propos</a></li>
-                <li><a href="showroom.html">Showroom</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="showroom.html">Showroom</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <section id="a-propos">
-            <h2>À propos</h2>
-            <p>Ce projet a été réalisé par [ton nom] dans le cadre de [description].</p>
-            <!-- Ajoute des images et graphiques ici -->
-        </section>
-        <div id="vanta-bg"></div>
+      <div class="about-container">
+        <div class="about-header">
+          <h1>À propos de Bigo <span class="bigoshop-logo">hub</span></h1>
+          <p>Découvrez l'histoire, les valeurs et l'équipe qui font de BigoShop le leader de la vente de téléphones mobiles haut de gamme en France.</p>
+        </div>
+
+        <div class="about-section">
+          <h2>Notre Histoire</h2>
+          <p>Fondé en 2018, BigoShop est né d'une passion commune pour la technologie mobile et d'une vision claire : offrir aux consommateurs une expérience d'achat exceptionnelle, combinant expertise technique, service personnalisé et prix compétitifs.</p>
+          <p>Ce qui a commencé comme une petite boutique en ligne s'est rapidement transformé en une référence nationale dans le domaine de la téléphonie mobile. Notre croissance rapide témoigne de notre engagement envers la satisfaction client et notre capacité à anticiper les tendances du marché.</p>
+          
+          <div class="timeline">
+            <div class="timeline-item left">
+              <div class="timeline-content">
+                <h3>2018</h3>
+                <p>Création de BigoShop et lancement de la première boutique en ligne.</p>
+              </div>
+            </div>
+            <div class="timeline-item right">
+              <div class="timeline-content">
+                <h3>2019</h3>
+                <p>Ouverture de notre premier showroom physique à Paris.</p>
+              </div>
+            </div>
+            <div class="timeline-item left">
+              <div class="timeline-content">
+                <h3>2020</h3>
+                <p>Développement de notre service de reprise et reconditionnement de téléphones.</p>
+              </div>
+            </div>
+            <div class="timeline-item right">
+              <div class="timeline-content">
+                <h3>2021</h3>
+                <p>Expansion nationale avec l'ouverture de 5 nouveaux showrooms.</p>
+              </div>
+            </div>
+            <div class="timeline-item left">
+              <div class="timeline-content">
+                <h3>2022</h3>
+                <p>Lancement de notre programme de fidélité BigoClub.</p>
+              </div>
+            </div>
+            <div class="timeline-item right">
+              <div class="timeline-content">
+                <h3>2023</h3>
+                <p>BigoShop devient partenaire officiel des plus grandes marques de téléphonie.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-section">
+          <h2>Notre Mission</h2>
+          <p>Chez BigoShop, notre mission est de démocratiser l'accès aux technologies mobiles les plus avancées, tout en offrant un service client d'exception. Nous croyons que chaque client mérite une expérience d'achat personnalisée et des conseils d'experts pour faire le meilleur choix possible.</p>
+          
+          <div class="about-grid">
+            <div class="about-card">
+              <h3>Notre Vision</h3>
+              <p>Devenir la référence incontournable dans le domaine de la téléphonie mobile en France, reconnue pour notre expertise, notre service client et notre engagement envers la qualité et l'innovation.</p>
+            </div>
+            <div class="about-card">
+              <h3>Nos Valeurs</h3>
+              <p>Excellence, intégrité, innovation et satisfaction client sont les piliers qui guident chacune de nos actions. Nous nous engageons à offrir des produits de qualité, un service irréprochable et une transparence totale.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-section">
+          <h2>Notre Engagement</h2>
+          <p>BigoShop s'engage à promouvoir une consommation responsable des produits technologiques. Notre programme de reprise et de reconditionnement des téléphones usagés contribue à réduire l'impact environnemental de l'industrie mobile.</p>
+          <p>Nous soutenons également plusieurs initiatives locales visant à réduire la fracture numérique, en donnant accès aux technologies mobiles aux communautés défavorisées et en organisant des ateliers de formation gratuits.</p>
+        </div>
+        
+        <div class="about-section team-section">
+          <h2>Notre Équipe</h2>
+          <p>BigoShop, c'est avant tout une équipe passionnée de professionnels dévoués à vous offrir le meilleur service possible. Experts en technologie mobile, conseillers clientèle ou techniciens qualifiés, chaque membre de notre équipe partage la même passion pour l'innovation et l'excellence.</p>
+          
+          <div class="team-grid">
+            <div class="team-member">
+              <div class="team-photo">👨‍💼</div>
+              <h3>Marvin Blaser</h3>
+              <p class="role">Fondateur & CEO</p>
+              <p class="bio">Passionné de technologie depuis son plus jeune âge, Thomas a fondé BigoShop avec la vision de créer une expérience d'achat unique dans le domaine de la téléphonie mobile.</p>
+            </div>
+            <div class="team-member">
+              <div class="team-photo">👩‍💼</div>
+              <h3>Marc Assain</h3>
+              <p class="role">Directrice Marketing</p>
+              <p class="bio">Avec plus de 10 ans d'expérience dans le marketing digital, Sophie supervise toutes les stratégies de communication et de développement de la marque BigoShop.</p>
+            </div>
+            <div class="team-member">
+              <div class="team-photo">👨‍🔧</div>
+              <h3>Jordan Abdebou</h3>
+              <p class="role">Responsable Technique</p>
+              <p class="bio">Expert en réparation et maintenance de smartphones, Lucas dirige notre équipe technique et assure la qualité de nos services après-vente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="vanta-bg"></div>
     </main>
     <footer>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                    viewBox="0 0 32 32">
-                    <path
-                        d="M16,2.345c7.735,0,14,6.265,14,14-.002,6.015-3.839,11.359-9.537,13.282-.7,.14-.963-.298-.963-.665,0-.473,.018-1.978,.018-3.85,0-1.312-.437-2.152-.945-2.59,3.115-.35,6.388-1.54,6.388-6.912,0-1.54-.543-2.783-1.435-3.762,.14-.35,.63-1.785-.14-3.71,0,0-1.173-.385-3.85,1.435-1.12-.315-2.31-.472-3.5-.472s-2.38,.157-3.5,.472c-2.677-1.802-3.85-1.435-3.85-1.435-.77,1.925-.28,3.36-.14,3.71-.892,.98-1.435,2.24-1.435,3.762,0,5.355,3.255,6.563,6.37,6.913-.403,.35-.77,.963-.893,1.872-.805,.368-2.818,.963-4.077-1.155-.263-.42-1.05-1.452-2.152-1.435-1.173,.018-.472,.665,.017,.927,.595,.332,1.277,1.575,1.435,1.978,.28,.787,1.19,2.293,4.707,1.645,0,1.173,.018,2.275,.018,2.607,0,.368-.263,.787-.963,.665-5.719-1.904-9.576-7.255-9.573-13.283,0-7.735,6.265-14,14-14Z">
-                    </path>
-                </svg></a>
-            <a href="#"><i class="fab fa-instagram"></i><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                    viewBox="0 0 32 32">
-                    <path
-                        d="M16,2c-7.732,0-14,6.268-14,14s6.268,14,14,14,14-6.268,14-14S23.732,2,16,2Zm6.489,9.521c-.211,2.214-1.122,7.586-1.586,10.065-.196,1.049-.583,1.401-.957,1.435-.813,.075-1.43-.537-2.218-1.053-1.232-.808-1.928-1.311-3.124-2.099-1.382-.911-.486-1.412,.302-2.23,.206-.214,3.788-3.472,3.858-3.768,.009-.037,.017-.175-.065-.248-.082-.073-.203-.048-.29-.028-.124,.028-2.092,1.329-5.905,3.903-.559,.384-1.065,.571-1.518,.561-.5-.011-1.461-.283-2.176-.515-.877-.285-1.574-.436-1.513-.92,.032-.252,.379-.51,1.042-.773,4.081-1.778,6.803-2.95,8.164-3.517,3.888-1.617,4.696-1.898,5.222-1.907,.116-.002,.375,.027,.543,.163,.142,.115,.181,.27,.199,.379,.019,.109,.042,.357,.023,.551Z"
-                        fill-rule="evenodd"></path>
-                </svg></a>
-            <a href="#"><i class="fab fa-twitter"></i><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                    viewBox="0 0 32 32">
-                    <path
-                        d="M16,2c-7.732,0-14,6.268-14,14,0,6.566,4.52,12.075,10.618,13.588v-9.31h-2.887v-4.278h2.887v-1.843c0-4.765,2.156-6.974,6.835-6.974,.887,0,2.417,.174,3.043,.348v3.878c-.33-.035-.904-.052-1.617-.052-2.296,0-3.183,.87-3.183,3.13v1.513h4.573l-.786,4.278h-3.787v9.619c6.932-.837,12.304-6.74,12.304-13.897,0-7.732-6.268-14-14-14Z">
-                    </path>
-                </svg></a>
-        </div>
-        <div class="info-links">
-            <a href="#">Accueil</a>
-            <span>•</span>
-            <a href="#">A propos</a>
-            <span>•</span>
-            <a href="#">Showroom</a>
-        </div>
-        <div class="terms-privacy">
-            <a href="#">Conditions d'utilisaion</a>
-            <span>•</span>
-            <a href="#">Politique de confidentialité</a>
-        </div>
-        <p>&copy; 2025 Marvin BLASER</p>
+      <div class="social-icons">
+        <a href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+            <path d="M16,2.345c7.735,0,14,6.265,14,14-.002,6.015-3.839,11.359-9.537,13.282-.7,.14-.963-.298-.963-.665,0-.473,.018-1.978,.018-3.85,0-1.312-.437-2.152-.945-2.59,3.115-.35,6.388-1.54,6.388-6.912,0-1.54-.543-2.783-1.435-3.762,.14-.35,.63-1.785-.14-3.71,0,0-1.173-.385-3.85,1.435-1.12-.315-2.31-.472-3.5-.472s-2.38,.157-3.5,.472c-2.677-1.802-3.85-1.435-3.85-1.435-.77,1.925-.28,3.36-.14,3.71-.892,.98-1.435,2.24-1.435,3.762,0,5.355,3.255,6.563,6.37,6.913-.403,.35-.77,.963-.893,1.872-.805,.368-2.818,.963-4.077-1.155-.263-.42-1.05-1.452-2.152-1.435-1.173,.018-.472,.665,.017,.927,.595,.332,1.277,1.575,1.435,1.978,.28,.787,1.19,2.293,4.707,1.645,0,1.173,.018,2.275,.018,2.607,0,.368-.263,.787-.963,.665-5.719-1.904-9.576-7.255-9.573-13.283,0-7.735,6.265-14,14-14Z">
+            </path>
+          </svg>
+        </a>
+        <a href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+            <path d="M16,2c-7.732,0-14,6.268-14,14s6.268,14,14,14,14-6.268,14-14S23.732,2,16,2Zm6.489,9.521c-.211,2.214-1.122,7.586-1.586,10.065-.196,1.049-.583,1.401-.957,1.435-.813,.075-1.43-.537-2.218-1.053-1.232-.808-1.928-1.311-3.124-2.099-1.382-.911-.486-1.412,.302-2.23,.206-.214,3.788-3.472,3.858-3.768,.009-.037,.017-.175-.065-.248-.082-.073-.203-.048-.29-.028-.124,.028-2.092,1.329-5.905,3.903-.559,.384-1.065,.571-1.518,.561-.5-.011-1.461-.283-2.176-.515-.877-.285-1.574-.436-1.513-.92,.032-.252,.379-.51,1.042-.773,4.081-1.778,6.803-2.95,8.164-3.517,3.888-1.617,4.696-1.898,5.222-1.907,.116-.002,.375,.027,.543,.163,.142,.115,.181,.27,.199,.379,.019,.109,.042,.357,.023,.551Z" fill-rule="evenodd">
+            </path>
+          </svg>
+        </a>
+        <a href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+            <path d="M16,2c-7.732,0-14,6.268-14,14,0,6.566,4.52,12.075,10.618,13.588v-9.31h-2.887v-4.278h2.887v-1.843c0-4.765,2.156-6.974,6.835-6.974,.887,0,2.417,.174,3.043,.348v3.878c-.33-.035-.904-.052-1.617-.052-2.296,0-3.183,.87-3.183,3.13v1.513h4.573l-.786,4.278h-3.787v9.619c6.932-.837,12.304-6.74,12.304-13.897,0-7.732-6.268-14-14-14Z">
+            </path>
+          </svg>
+        </a>
+      </div>
+      <div class="info-links">
+        <a href="index.html">Accueil</a>
+        <span>•</span>
+        <a href="about.html">À propos</a>
+        <span>•</span>
+        <a href="showroom.html">Showroom</a>
+      </div>
+      <div class="terms-privacy">
+        <a href="#">Conditions d'utilisation</a>
+        <span>•</span>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+      <p>&copy; 2025 BigoShop</p>
     </footer>
     <script src="js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script>
-        // Variables globales
-        let scene, camera, renderer, currentModel, controls, isPopupOpen = false;
-     
-     // Initialiser Vanta.js pour le background
-     VANTA.GLOBE({
-         el: "#vanta-bg",
-         THREE: THREE, // Utilisez votre instance de Three.js
-         mouseControls: true,
-         touchControls: true,
-         gyroControls: false,
-         minHeight: 200.00,
-         minWidth: 200.00,
-         scale: 1.00,
-         scaleMobile: 1.00,
-         color: 0x43240c,
-         color2: 0x252525,
-         size: 1.30,
-         backgroundColor: 0xf0f0f
-     });
+      let scene, camera, renderer, currentModel, controls, isPopupOpen = false;
+      
+      VANTA.GLOBE({
+        el: "#vanta-bg",
+        THREE: THREE,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x43240c,
+        color2: 0x252525,
+        size: 1.30,
+        backgroundColor: 0xf0f0f
+      });
     </script>
-</body>
+  </body>
 </html>
